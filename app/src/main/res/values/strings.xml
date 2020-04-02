@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MuteSpotifyAds</string>
+    <string name="service_running">Running</string>
+    <string name="service_not_running">Not running</string>
 </resources>

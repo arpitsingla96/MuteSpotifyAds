@@ -63,7 +63,7 @@ public class SpotifyHandler {
 
     private void setVolume(int vol) {
         AudioManager am = (AudioManager) serviceContext.getSystemService(AUDIO_SERVICE);
-        am.setStreamVolume(AudioManager.STREAM_MUSIC, lastVol, AudioManager.FLAG_SHOW_UI);
+        am.setStreamVolume(AudioManager.STREAM_MUSIC, vol, AudioManager.FLAG_SHOW_UI);
     }
 
     private boolean isMute() {

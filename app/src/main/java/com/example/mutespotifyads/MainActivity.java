@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,11 +23,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void buttons() {
+        findViewById(R.id.start_listening).setOnClickListener(v -> startService(new Intent(this, SpotifyNotificationListenerService.class)));
+        findViewById(R.id.get_service_status).setOnClickListener(v -> {
+            TextView serviceStatus = findViewById(R.id.service_status);
+            if (SpotifyNotificationListenerService.isRunning()) {
+                serviceStatus.setText(R.string.service_running);
+            }
+            else {
+                serviceStatus.setText(R.string.service_not_running);
+            }
+        });
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         askForPermissions();
-        startService(new Intent(this, SpotifyNotificationListenerService.class));
+        buttons();
     }
 }

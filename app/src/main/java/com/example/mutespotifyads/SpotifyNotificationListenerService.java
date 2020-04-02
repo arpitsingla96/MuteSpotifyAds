@@ -1,9 +1,7 @@
 package com.example.mutespotifyads;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -13,6 +11,7 @@ public class SpotifyNotificationListenerService extends NotificationListenerServ
 
     private String TAG = this.getClass().getSimpleName();
     private SpotifyHandler spotifyHandler = SpotifyHandler.getInstance();
+    private static boolean running = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -23,6 +22,17 @@ public class SpotifyNotificationListenerService extends NotificationListenerServ
     public void onCreate() {
         super.onCreate();
         spotifyHandler.setServiceContext(this);
+        running = true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        running = false;
+    }
+
+    public static boolean isRunning() {
+        return running;
     }
 
     private void handleNotificationPosted(StatusBarNotification sbn) {
